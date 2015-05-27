@@ -194,9 +194,9 @@ node_up_check() {
 
 # Function to check if the config file is valid
 check_config() {
-    MUTE=`$NODETOOL_LITE chkconfig $RUNNER_ETC_DIR/app.config`
+    MUTE=`$NODETOOL_LITE chkconfig $RUNNER_BASE_DIR/releases/$APP_VSN/$RUNNER_RELEASE.config`
     if [ "$?" -ne 0 ]; then
-        echoerr "Error reading $RUNNER_ETC_DIR/app.config"
+        echoerr "Error reading $RUNNER_BASE_DIR/releases/$APP_VSN/$RUNNER_RELEASE.config"
         exit 1
     fi
     echo "config is OK"
