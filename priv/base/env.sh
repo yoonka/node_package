@@ -29,7 +29,6 @@ RUNNER_LIB_DIR={{runner_lib_dir}}
 RUNNER_PATCH_DIR={{runner_patch_dir}}
 PIPE_DIR={{pipe_dir}}
 RUNNER_USER={{runner_user}}
-APP_VERSION={{app_version}}
 
 # Variables needed to support creation of .pid files
 # PID directory and pid file name of this app
