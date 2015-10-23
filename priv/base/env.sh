@@ -191,11 +191,20 @@ node_up_check() {
     fi
 }
 
+# Function to check if the boot file exists
+check_boot_file() {
+    if [ ! -e "$RUNNER_BASE_DIR/releases/$APP_VSN/start.boot" ]; then
+        echoerr "Error reading $RUNNER_BASE_DIR/releases/$APP_VSN/start.boot"
+        exit 1
+    fi
+    echo "boot file is present"
+}
+
 # Function to check if the config file is valid
 check_config() {
-    MUTE=`$NODETOOL_LITE chkconfig $RUNNER_BASE_DIR/releases/$APP_VSN/$RUNNER_RELEASE.config`
+    MUTE=`$NODETOOL_LITE chkconfig $RUNNER_BASE_DIR/releases/$APP_VSN/sys.config`
     if [ "$?" -ne 0 ]; then
-        echoerr "Error reading $RUNNER_BASE_DIR/releases/$APP_VSN/$RUNNER_RELEASE.config"
+        echoerr "Error reading $RUNNER_BASE_DIR/releases/$APP_VSN/sys.config"
         exit 1
     fi
     echo "config is OK"

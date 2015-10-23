@@ -58,6 +58,13 @@ case "$1" in
         # Make sure there is not already a node running
         node_down_check
 
+        # Check if start.boot exists
+        check_boot_file > /dev/null
+        EB=$?
+        if [ "$EB" -ne 0 ]; then
+            exit $EB
+        fi
+
         # Sanity check the sys.config file
         check_config > /dev/null
         ES=$?
@@ -216,6 +223,13 @@ case "$1" in
             exit 1
         fi
 
+        # Check if start.boot exists
+        check_boot_file
+        EB=$?
+        if [ "$EB" -ne 0 ]; then
+            exit $EB
+        fi
+
         # Sanity check the sys.config file
         check_config
         ES=$?
@@ -234,8 +248,8 @@ case "$1" in
         BINDIR=$RUNNER_BASE_DIR/erts-$ERTS_VSN/bin
         EMU=beam
         PROGNAME=`echo $0 | sed 's/.*\///'`
-        CMD="$BINDIR/erlexec -boot $RUNNER_BASE_DIR/releases/$APP_VSN/$RUNNER_RELEASE \
-            -config $RUNNER_BASE_DIR/releases/$APP_VSN/$RUNNER_RELEASE.config \
+        CMD="$BINDIR/erlexec -boot $RUNNER_BASE_DIR/releases/$APP_VSN/start \
+            -config $RUNNER_BASE_DIR/releases/$APP_VSN/sys.config \
             -pa $RUNNER_PATCH_DIR \
             -args_file $RUNNER_ETC_DIR/vm.args -- ${1+"$@"}"
         export EMU
